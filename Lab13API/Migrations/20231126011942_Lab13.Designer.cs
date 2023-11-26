@@ -4,6 +4,7 @@ using Lab13API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab13API.Migrations
 {
     [DbContext(typeof(InvoiceContext))]
-    partial class InvoiceContextModelSnapshot : ModelSnapshot
+    [Migration("20231126011942_Lab13")]
+    partial class Lab13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,23 +84,13 @@ namespace Lab13API.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("InvoiceId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("SubTotal")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("DetailId");
-
-                    b.HasIndex("InvoiceId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Details");
                 });
@@ -157,25 +149,6 @@ namespace Lab13API.Migrations
                     b.HasIndex("CategoryID");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Lab13API.Models.Detail", b =>
-                {
-                    b.HasOne("Lab13API.Models.Invoice", "invoice")
-                        .WithMany()
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Lab13API.Models.Product", "product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("invoice");
-
-                    b.Navigation("product");
                 });
 
             modelBuilder.Entity("Lab13API.Models.Invoice", b =>

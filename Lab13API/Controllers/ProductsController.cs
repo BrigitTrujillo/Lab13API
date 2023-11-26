@@ -30,7 +30,7 @@ namespace Lab13API.Controllers
 
               return NotFound();
           }
-            return await _context.Products.Where(x => x.active == true).ToListAsync();
+            return await _context.Products.Where(x => x.Active == true).ToListAsync();
         }
 
         // GET: api/Products/5
@@ -61,7 +61,9 @@ namespace Lab13API.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            
+
+            // _context.Entry(product).State = EntityState.Modified;
 
             try
             {
@@ -92,8 +94,9 @@ namespace Lab13API.Controllers
             
                 return Problem("Entity set 'InvoiceContext.Products'  is null.");
           }
+
             // _context.Products.Add(product);
-            product.active = true;
+            product.Active = true;
             _context.Add(product);
             await _context.SaveChangesAsync();
 
@@ -117,7 +120,7 @@ namespace Lab13API.Controllers
                 return NotFound();
             }
             _context.Entry(product).State = EntityState.Modified;
-            product.active = false;
+            product.Active = false;
            // _context.Products.Remove(product);
             await _context.SaveChangesAsync();
 

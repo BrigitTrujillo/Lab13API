@@ -87,15 +87,19 @@ namespace Lab13API.Controllers
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
-          if (_context.Customers == null)
-          {
-              return Problem("Entity set 'InvoiceContext.Customers'  is null.");
-          }
+            // Eliminar esta verificación
+            // if (_context.Customers == null)
+            // {
+            //     return Problem("Entity set 'InvoiceContext.Customers' is null.");
+            // }
+
+            customer.Active = true;
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
         }
+
 
         // DELETE: api/Customers/5
         [HttpDelete("{id}")]

@@ -6,7 +6,7 @@
         public string Name { get; set; }
         public decimal Price { get; set; }
 
-        public bool active { get; set; }
+        public bool Active { get; set; }
 
 
         public Category? category { get; set; }
