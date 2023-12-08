@@ -17,8 +17,6 @@ namespace Lab13API.Controllers
             _context = context;
         }
 
-
-
         [HttpGet("{invoiceNumber}")]
         public IActionResult GetInvoiceDetailsByNumber(string invoiceNumber)
         {
