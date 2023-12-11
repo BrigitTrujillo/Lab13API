@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab13API.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab13API.Controllers
 {
@@ -31,7 +32,7 @@ namespace Lab13API.Controllers
             return await _context.Invoices.ToListAsync();
         }
 
-        // GET: api/Invoices/5
+        [Authorize("Vendedor")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Invoice>> GetInvoice(int id)
         {

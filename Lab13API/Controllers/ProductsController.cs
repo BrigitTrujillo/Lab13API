@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab13API.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab13API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller] /[action]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -20,7 +21,7 @@ namespace Lab13API.Controllers
             _context = context;
         }
 
-        // GET: api/Products
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
@@ -33,7 +34,7 @@ namespace Lab13API.Controllers
             return await _context.Products.Where(x => x.Active == true).ToListAsync();
         }
 
-        // GET: api/Products/5
+       [Authorize("Adiministrador")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
@@ -131,5 +132,6 @@ namespace Lab13API.Controllers
         {
             return (_context.Products?.Any(e => e.ProductID == id)).GetValueOrDefault();
         }
+
     }
 }
